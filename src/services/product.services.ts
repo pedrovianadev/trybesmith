@@ -1,7 +1,7 @@
 import { Product } from '../types/Product';
-import { Response } from '../types/ServerResponse';
+import { ServerResponse } from '../types/ServerResponse';
 import ProductModel, {
-  ProductInputtableTypes,
+  ProductInputtableTypes, ProductSequelizeModel,
 } from '../database/models/product.model';
 
 function checkParams({
@@ -16,8 +16,8 @@ function checkParams({
   return null;
 }
 
-async function createProduct(product: ProductInputtableTypes): Promise<Response<Product>> {
-  let response: Response<Product>;
+async function createProduct(product: ProductInputtableTypes): Promise<ServerResponse<Product>> {
+  let response: ServerResponse<Product>;
 
   const error = checkParams(product);
 
@@ -33,6 +33,13 @@ async function createProduct(product: ProductInputtableTypes): Promise<Response<
   return response;
 }
 
+async function listProduct(): Promise<ServerResponse<ProductSequelizeModel[]>> {
+  const products = await ProductModel.findAll();
+
+  return { status: 'SUCCESSFUL', data: products };
+}
+
 export default {
   createProduct,
+  listProduct,
 };

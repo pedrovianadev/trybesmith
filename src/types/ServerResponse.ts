@@ -10,4 +10,4 @@ export type ResponseSuccess<T> = {
   data: T
 };
 
-export type Response<T> = ResponseError | ResponseSuccess<T>;
+export type ServerResponse<T> = ResponseError | ResponseSuccess<T>;
